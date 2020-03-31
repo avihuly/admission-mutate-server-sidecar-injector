@@ -1,1 +1,4 @@
 .DS_Store
+ssl/mutateme-server.csr
+ssl/mutateme-server.key
+ssl/mutateme-server.pem
