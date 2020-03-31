@@ -1,0 +1,11 @@
+
+
+# oc annotate ns myproject bnhp.co.il/transformers.apitest-sidecar-data='[{"service":"petclinic","deployment":"petclinic","cotanierPort":8080}]' --overwrite
+# oc label ns myproject transformers-apitest-sidecar=enabled --overwrite
+
+
+annotations:
+  bnhp.co.il/transformers.apitest-sidecar-data: '[{"service": "test-service", "deployment":"ngnix", "cotanierPort": "4443"}]'
+labels:
+  transformers-apitest-sidecar: enabled
+

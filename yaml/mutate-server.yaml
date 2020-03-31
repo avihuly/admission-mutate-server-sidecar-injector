@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mutate-server
+  labels:
+    app: mutate-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mutate-server
+  template:
+    metadata:
+      labels:
+        app: mutate-server
+    spec:
+      containers:
+      - name: mutate-server
+        image: avihuly/mutate-server:test
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 4443
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: mutate-server
+  name: mutateme-server
+  namespace: default
+spec:
+  ports:
+    - name: 443-tcp
+      port: 443
+      protocol: TCP
+      targetPort: 4443
+  selector:
+    app: mutate-server
+  sessionAffinity: None
+  type: ClusterIP

@@ -1,0 +1,1 @@
+minishift openshift config set --target=kube --patch '{"kubernetesMasterConfig":{"controllerArguments":{"cluster-signing-cert-file":["/etc/origin/master/ca.crt"],"cluster-signing-key-file":["/etc/origin/master/ca.key"]}}}'

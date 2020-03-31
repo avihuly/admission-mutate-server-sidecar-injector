@@ -1,0 +1,65 @@
+
+{
+    "kind": "AdmissionReview",
+    "apiVersion": "admission.k8s.io/v1beta1",
+    "request": {
+        "uid": "79b815cf-71f1-11ea-9ea6-08002712e1c9",
+        "kind": {
+            "group": "",
+            "version": "v1",
+            "kind": "Service"
+        },
+        "resource": {
+            "group": "",
+            "version": "v1",
+            "resource": "services"
+        },
+        "namespace": "default",
+        "operation": "CREATE",
+        "userInfo": {
+            "username": "avi",
+            "uid": "9aa1cda6-7133-11ea-b37a-08002712e1c9",
+            "groups": [
+                "system:authenticated:oauth",
+                "system:authenticated"
+            ],
+            "extra": {
+                "scopes.authorization.openshift.io": [
+                    "user:full"
+                ]
+            }
+        },
+        "object": {
+            "metadata": {
+                "name": "test-service",
+                "namespace": "default",
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "mutate-server"
+                },
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"mutate-server\"},\"name\":\"test-service\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"443-tcp\",\"port\":44678,\"protocol\":\"TCP\",\"targetPort\":4443}],\"selector\":{\"app\":\"mutate-server\"},\"sessionAffinity\":\"None\",\"type\":\"ClusterIP\"}}\n"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "name": "443-tcp",
+                        "protocol": "TCP",
+                        "port": 44678,
+                        "targetPort": 4443
+                    }
+                ],
+                "selector": {
+                    "app": "mutate-server"
+                },
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        "oldObject": null
+    }
+}

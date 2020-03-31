@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: myproject
+  name: petclinic
+  labels:
+    app: petclinic
+# spec/template/spec/containers
+# docker run -e "SPRING_PROFILES_ACTIVE=prod" -p 8080:8080 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: petclinic
+  template:
+    metadata:
+      labels:
+        app: petclinic
+    spec:
+      containers:
+      - name: petclinic
+        image: arey/springboot-petclinic
+        env:
+          - name: SPRING_PROFILES_ACTIVE
+            value: prod
+        ports:
+        - containerPort: 8080
