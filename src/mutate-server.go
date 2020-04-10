@@ -19,34 +19,6 @@ var (
 	client *kubernetes.Clientset
 )
 
-// https://stackoverflow.com/questions/33646948/go-using-mux-router-how-to-pass-my-db-to-my-handlers
-func handleMutate(client *kubernetes.Clientset) http.HandlerFunc {
-	handlerFunc := func(w http.ResponseWriter, request *http.Request) {
-		// read the body / request
-		reqBody, err := ioutil.ReadAll(request.Body)
-		defer request.Body.Close()
-		if err != nil {
-			log.Println(err)
-			w.WriteHeader(http.StatusInternalServerError)
-			fmt.Fprintf(w, "%s", err)
-		}
-
-		// mutate the request
-		mutated, err := admissionreview.Mutate(reqBody, *client)
-		if err != nil {
-			log.Println(err)
-			w.WriteHeader(http.StatusInternalServerError)
-			fmt.Fprintf(w, "%s", err)
-		}
-
-		// and write it back
-		w.Header().Add("Content-Type", "application/json")
-		w.WriteHeader(http.StatusOK)
-		w.Write(mutated)
-	}
-	return handlerFunc
-}
-
 func main() {
 	// Flags for local run
 	port := flag.String("port", "4443", "port - default 4443")
@@ -74,4 +46,32 @@ func main() {
 	}
 
 	log.Fatal(s.ListenAndServeTLS("../ssl/mutateme-server.pem", "../ssl/mutateme-server.key"))
+}
+
+// https://stackoverflow.com/questions/33646948/go-using-mux-router-how-to-pass-my-db-to-my-handlers
+func handleMutate(client *kubernetes.Clientset) http.HandlerFunc {
+	handlerFunc := func(w http.ResponseWriter, request *http.Request) {
+		// read the body / request
+		reqBody, err := ioutil.ReadAll(request.Body)
+		defer request.Body.Close()
+		if err != nil {
+			log.Println(err)
+			w.WriteHeader(http.StatusInternalServerError)
+			fmt.Fprintf(w, "%s", err)
+		}
+
+		// mutate the request
+		mutated, err := admissionreview.Mutate(reqBody, *client)
+		if err != nil {
+			log.Println(err)
+			w.WriteHeader(http.StatusInternalServerError)
+			fmt.Fprintf(w, "%s", err)
+		}
+
+		// and write it back
+		w.Header().Add("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		w.Write(mutated)
+	}
+	return handlerFunc
 }

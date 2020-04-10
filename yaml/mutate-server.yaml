@@ -14,10 +14,17 @@ spec:
       labels:
         app: mutate-server
     spec:
+      volumes:
+        - name: ssl-volume
+          secret:
+            secretName: ssl
       containers:
       - name: mutate-server
-        image: avihuly/mutate-server:test-src
+        image: avihuly/mutate-server:test-alpine
         imagePullPolicy: Always
+        volumeMounts:
+          - mountPath: /ssl
+            name: ssl-volume
         ports:
         - containerPort: 4443
 ---
