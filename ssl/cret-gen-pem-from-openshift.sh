@@ -5,6 +5,9 @@ export APP="${1:-mutateme-server}"
 export NAMESPACE="${2:-default}"
 export CSR_NAME="${APP}.${NAMESPACE}.svc"
 
+
+
+
 echo "... creating ${app}.key"
 openssl genrsa -out ${APP}.key 2048
 

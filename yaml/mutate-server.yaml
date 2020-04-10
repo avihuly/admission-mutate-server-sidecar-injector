@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: mutate-server
-        image: avihuly/mutate-server:test
+        image: avihuly/mutate-server:test-src
         imagePullPolicy: Always
         ports:
         - containerPort: 4443
@@ -27,7 +27,6 @@ metadata:
   labels:
     app: mutate-server
   name: mutateme-server
-  namespace: default
 spec:
   ports:
     - name: 443-tcp
